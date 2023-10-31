@@ -1,5 +1,5 @@
 @extends('backend.index')
-@section('title','User')
+@section('title','Order')
 @section('linh')  
 <div class="container">
     <form action="">
@@ -36,7 +36,16 @@
                         {{ session('success') }}
                     </strong>
                 </div>
-            </div>           
+            </div>   
+        @elseif(session('error'))
+            <div class="aleat-success">
+                <div class="alert alert-info alert-dismissible fade show" role="alert">
+                    <strong>
+                        {{ session('error') }}
+                    </strong>
+                </div>
+            </div>   
+            
         @endif
         <h2>List of order </h2>
         <hr> 
@@ -61,8 +70,8 @@
                     <tr>
                         <td>{{$loop->iteration}}</td>
                         <td>{{$item->name}}</td>
-                        {{-- <td></td> --}}
-                        <td>{{$item->cityData->name}},{{$item->districtData->name}},{{$item->address}}</td>
+                        {{-- <td>{{$item->users->name}}</td> --}}
+                        <td>{{$item->DataCity->name}},{{$item->district->name}},{{$item->address}}</td>
                         <td>{{$item->phone}}</td>
                         <td>{{$item->email}}</td>
                         <td>{{$item->note}}</td>
@@ -83,12 +92,12 @@
 
                         </td>
                         <td class="">
-                            <a href="{{route('order.edit',$item->id)}}" class="btn btn-outline-success">EDIT</a>
-                                <form action="{{route('order.destroy', $item->id)}}"  method="post">
-                                    @csrf
-                                    @method('DELETE')
-                                    <button type="submit" class="btn btn-outline-danger" onclick=" return confirm('You want delete order ?')">DELETE</button>
-                                </form>
+                            <form action="{{route('order.destroy',$item->id)}}" method="post">
+                                <a href="{{route('order.edit',$item->id)}}" class="button-icon-update"><ion-icon name="create-outline" class="icon-delete"></ion-icon></a>
+                                @method('delete')
+                                @csrf
+                                <button type="submit" class="button-icon-delete"><ion-icon name="close-outline" class="icon-delete"></ion-icon></button>
+                            </form>
                         </td>
                     </tr>
                 @endforeach

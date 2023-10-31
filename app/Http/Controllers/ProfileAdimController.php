@@ -10,33 +10,24 @@ use Illuminate\Support\Facades\Redirect;
 use Illuminate\View\View;
 use App\Models\{User,Order,Order_detail,Product};
 
-class ProfileController extends Controller
+class ProfileAdminController extends Controller
 {
     /**
      * Display the user's profile form.
      */
-    public function index(Request $request , Order_detail $id): View
+    public function index(Request $request ): View
     {
         // dd($request->user()->name);
-        $user = $request->user();
+        $admin =  Auth::guard('admin');
         // $user = User::with('orders_user')->find($id);
-        // $order = Order::with('users')->find($id);
-        // dd($order->users);
-        return view('frontend.profile.edit', compact('user'));
+        // dd($user->orders);
+        return view('admin.profile.edit', compact('admin'));
     }
     public function edit(Request $request): View
     {
         // dd($request->user()->name);
         $user = $request->user();
-        // dd($user->orders);
         return view('frontend.profile.partials.edit', compact('user'));
-    }
-
-    public function show($id)
-    {
-        $detail = Order::with('order_detail')->find($id);
-        
-        return view('frontend.profile.partials.detail',compact('detail'));
     }
 
     /**

@@ -3,8 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\User;
-use App\Models\Product;
+use App\Models\{User,Product,Order, Order_detail,Comment};
 
 
 class DashboardController extends Controller
@@ -14,9 +13,13 @@ class DashboardController extends Controller
      */
     public function index()
     {
-        $user = User::orderBy('id', 'DESC')->limit(8)->get();
+        $user = User::inRandomOrder()->orderBy('id', 'DESC')->limit(6)->get();
         $totalproduct = Product::count();
-        return view('admin.dashboard.index',compact('user','totalproduct'));
+        $ordertotal = Order_detail::count();
+        $comment = Comment::count();
+        $orders = Order::inRandomOrder()->with('detail')->limit(8)->get();
+        
+        return view('admin.dashboard.index',compact('user','ordertotal','comment','orders','totalproduct'));
     }
     
     /**

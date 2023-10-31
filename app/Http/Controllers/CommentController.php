@@ -13,7 +13,7 @@ class CommentController extends Controller
     public function index()
     {
         $comment = Comment::orderBy('name','desc')->search()->paginate(10);
-        return view('backend.comment.list', compact('comment'));
+        return view('admin.comment.list', compact('comment'));
     }
 
     /**

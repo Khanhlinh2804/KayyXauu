@@ -24,6 +24,9 @@ class PasswordController extends Controller
             'password' => Hash::make($validated['password']),
         ]);
 
-        return back()->with('status', 'password-updated');
+        return redirect('/profile')->with('success', 'password-updated successfully');
+    }
+    public function editPassword(){
+        return view('frontend.profile.partials.update-password-form');
     }
 }

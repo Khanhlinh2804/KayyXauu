@@ -15,7 +15,7 @@
 
                 <div class="card">
                     <div >
-                        <div class="numbers">80</div>
+                        <div class="numbers">{{$ordertotal}}</div>
                         <div class="cardName">Sales</div>
                     </div>
 
@@ -26,7 +26,7 @@
 
                 <div class="card">
                     <div>
-                        <div class="numbers">284</div>
+                        <div class="numbers">{{$comment}}</div>
                         <div class="cardName">Comments</div>
                     </div>
 
@@ -52,74 +52,43 @@
                 <div class="recentOrders">
                     <div class="cardHeader">
                         <h2>Recent Orders</h2>
-                        <a href="#" class="btn">View All</a>
+                        <a href="{{route('order.index')}}" class="btn">View All</a>
                     </div>
                     <table>
                         <thead>
                             <tr>
                                 <td>Name</td>
-                                <td>Price</td>
                                 <td>Payment</td>
                                 <td>Status</td>
                             </tr>
                         </thead>
 
                         <tbody>
+                            @foreach ($orders as $item)
+                                
                             <tr>
-                                <td>Star Refrigerator</td>
-                                <td>$1200</td>
-                                <td>Paid</td>
-                                <td><span class="status delivered">Delivered</span></td>
+                                <td>{{$item->name}}</td>
+                                {{-- <td>{{$item->detail->name}}</td> --}}
+                                <td>{{$item->payment}}</td>
+                                <td>
+                                    @if ($item->status == 1)
+                                        <span class="status inProgress">Waiting for confirmation</span>
+                                    @elseif($item->status == 2)
+                                        <span class="status delivered">Order confirmed</span>
+                                    @elseif($item->status == 3)
+                                        <span class="status pending" >Packaged and sent to the shipping carrier</span>
+                                    @elseif($item->status == 4)
+                                        <span style="color: rgb(9, 32, 242)">Order in transit</span>
+                                    @elseif($item->status == 5)
+                                        <span style="color: rgb(143, 8, 8)">Delivery successful</span>
+                                    @else
+                                        <span class="status return">Delivery failed</span>
+                                    @endif
+                                    
                             </tr>
+                            @endforeach
 
-                            <tr>
-                                <td>Dell Laptop</td>
-                                <td>$110</td>
-                                <td>Due</td>
-                                <td><span class="status pending">Pending</span></td>
-                            </tr>
-
-                            <tr>
-                                <td>Apple Watch</td>
-                                <td>$1200</td>
-                                <td>Paid</td>
-                                <td><span class="status return">Return</span></td>
-                            </tr>
-
-                            <tr>
-                                <td>Addidas Shoes</td>
-                                <td>$620</td>
-                                <td>Due</td>
-                                <td><span class="status inProgress">In Progress</span></td>
-                            </tr>
-
-                            <tr>
-                                <td>Star Refrigerator</td>
-                                <td>$1200</td>
-                                <td>Paid</td>
-                                <td><span class="status delivered">Delivered</span></td>
-                            </tr>
-
-                            <tr>
-                                <td>Dell Laptop</td>
-                                <td>$110</td>
-                                <td>Due</td>
-                                <td><span class="status pending">Pending</span></td>
-                            </tr>
-
-                            <tr>
-                                <td>Apple Watch</td>
-                                <td>$1200</td>
-                                <td>Paid</td>
-                                <td><span class="status return">Return</span></td>
-                            </tr>
-
-                            <tr>
-                                <td>Addidas Shoes</td>
-                                <td>$620</td>
-                                <td>Due</td>
-                                <td><span class="status inProgress">In Progress</span></td>
-                            </tr>
+                            
                         </tbody>
                     </table>
                 </div>

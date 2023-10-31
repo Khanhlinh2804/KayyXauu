@@ -119,7 +119,7 @@
             </button>
             <ul class="dropdown-menu">
               <li>
-                <a class="dropdown-item" href="{{route('profile.edit')}}">Profile</a>
+                <a class="dropdown-item" href="{{route('profile.index')}}">Profile</a>
               </li>
               <li>
                 <form method="POST" action="{{ route('logout') }}">
@@ -139,14 +139,14 @@
         @endif
 
         
-        <div class="pl-5 position-relative">
+        {{-- <div class="pl-5 position-relative">
             <a href="{{route('cart')}}" class="">
               <i class="fas fa-shopping-bag icon"></i>
               <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
                 {{count((array) session('cart'))}}
               </span>
           </a>
-        </div>
+        </div> --}}
 
       </div>
 

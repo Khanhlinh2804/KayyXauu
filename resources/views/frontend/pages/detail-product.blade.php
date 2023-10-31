@@ -3,6 +3,24 @@
 @section('content')
 <div class="container pt-5">
     <div class="row pt-5">
+        @if (session('success'))
+            <div class="aleat-success">
+                <div class="alert alert-info alert-dismissible fade show" role="alert">
+                    <strong>
+                        {{ session('success') }}
+                    </strong>
+                </div>
+            </div>           
+        @elseif(session('error'))
+            <div class="aleat-success">
+                <div class="alert alert-primary alert-dismissible fade show" role="alert">
+                    <strong>
+                        {{ session('error') }}
+                    </strong>
+                </div>
+            </div>           
+            
+        @endif
         <div class="col-lg-5 ">
             <img src="{{url('uploads')}}/{{$product->images}}" alt="" width="100%" class="ml-3" height="800px">
         </div>

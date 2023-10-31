@@ -3,8 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\User;
-use App\Models\Order;
+use App\Models\{User,Order,Order_detail};
+// use App\Models\Order;
 
 class OrderController extends Controller
 {
@@ -14,7 +14,7 @@ class OrderController extends Controller
     public function index()
     {
         $user = User::all();
-        $order = Order::with('city','district')->orderByDesc('id','desc')->search()->paginate(8);
+        $order = Order::with('DataCity','district')->orderByDesc('id','desc')->search()->paginate(8);
         return view('admin.order.list', compact('order','user'));
     }
 
@@ -47,7 +47,10 @@ class OrderController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        $order = Order::with('DataCity','district','order_detail')->find($id);
+        // $cart = Order_detail::with('products')->find($id);
+        // dd($order->order_detail);
+        return view('admin.order.edit',compact('order'));
     }
 
     /**
@@ -55,7 +58,14 @@ class OrderController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        $order = Order::find($id);
+        if ($order) {
+            $order->update([
+                'status' => $request->status
+            ]);
+            return redirect()->route('order.index')->with('success', 'Update cart successfully');
+        }
+        return redirect()->route('order.index')->with('error', 'Update cart Unsuccessfully');
     }
 
     /**
@@ -63,11 +73,12 @@ class OrderController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $order = Order::find($id)->delete();
+        return redirect()->back()->with('success','delete successfully');
     }
     public function trashed()
     {
-        $order= order::onlyTrashed()->orderByDesc('id','desc')->paginate(10);
+        $order= order::onlyTrashed()->with('DataCity','district','order_detail')->orderByDesc('id','desc')->paginate(10);
 
         return view('admin.order.trash', compact('order'));
     }

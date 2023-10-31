@@ -60,7 +60,7 @@
                     name="city" id="city" >
                         <option value="" selected disabled>Select a city</option>
                         @foreach ($city as $data)
-                            <option value="{{ $data->id }}" {{ old('city') == $data->id ? 'selected' : '' }}>{{ $data->name }}</option>
+                            <option value="{{ $data->id }}" {{ old('city') == $data->id ? 'selected' : '' }}>{{ $data->name }}{{ $data->id }}</option>
                         @endforeach
                     </select>
                 </div>
@@ -104,7 +104,7 @@
                 </div>
                 <div class="form-group">
                     <div class="mb-3 pt-3 contacts">
-                        <textarea class="form-control"  rows="5" name="note" placeholder="Message"></textarea>
+                        <textarea class="form-control"  rows="5" name="note" placeholder="Message"> No</textarea>
                     </div>
                 </div>
                 <div class="row">

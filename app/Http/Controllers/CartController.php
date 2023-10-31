@@ -30,26 +30,30 @@ class CartController extends Controller
     }
     public function Addcart($id)
     {
-        
         $product = Product::findOrFail($id);
-        
-        $cart = session()->get('cart',[]);
-        if(isset($cart[$id])){
-            $cart[$id]['quatity']++;
-        }else{
-            $cart[$id] = [
-                "name" => $product->name,
-                "quatity" => 1,
-                "price" => $product->price,
-                "sale_price" => $product->sale_price,
-                "images" => $product->images,
-            ];
-            
-
+        if ($product) {
+            $cart = session()->get('cart',[]);
+            if(isset($cart[$id])){
+                $cart[$id]['quatity']++;
+            }else{
+                $cart[$id] = [
+                    "name" => $product->name,
+                    "quatity" => 1,
+                    "price" => $product->price,
+                    "sale_price" => $product->sale_price,
+                    "images" => $product->images,
+                    
+                ];
+                
+    
+            }
+            session()->put('cart',$cart);
+            return redirect()->back()->with('success','Add to cart successfully');
         }
-        // dd($product);
-        session()->put('cart',$cart);
-        return redirect()->back()->with('success','Add to cart successfully');
+        else{
+            return redirect()->back()->with('error', 'Add to cart Unsuccessfully');
+        }
+        
     }
 
     public function RemoveCart(Request $request)
@@ -60,7 +64,6 @@ class CartController extends Controller
                 unset($cart[$request->id]);
                 session()->put('cart', $cart);
             }
-            // dd($cart);
             session()->flash('success', 'Delete item successfully');  
             
         }
@@ -75,18 +78,14 @@ class CartController extends Controller
 
     }
 
-    public function ClearCart()
-    {
-        
-    }
     public function create()
     {
         if(Auth::check() == false){
             return redirect()->route('login')->with('success', 'You must login in to continue shopping');
         }
-        $city = City::get('name','id');
+        $city = City::select('id','name')->get();
+        // dd($city);
         $district = District::get('name','id');
-        // $distrit = District
         return view('frontend.cart.checkout',compact('city','district'));
     }
     
@@ -106,40 +105,27 @@ class CartController extends Controller
 
     public function store(Request $request)
     {
+        // dd($request->all());
         $cart = session()->get('cart');
-        $data = $request->only(
+        $data = $request->only([
             'name', 'lastname','address', 'city', 'districts', 'phone', 'payment', 'email', 'note', 'status', 'user_id'
-        );
-        
+        ]);
+        // dd($data);
         $order = Order::create($data);
-        // $order = Order::create([
-        //     'name' => $request->name,
-        //     'lastname' => $request->lastname,
-        //     'address' => $request->address,
-        //     'city' => $request->city,
-        //     'districts' => $request->districts,
-        //     'phone' => $request->phone,
-        //     'payment' => $request->payment,
-        //     'email' => $request->email,
-        //     'note' => $request->note,
-        //     'status' => $request->status,
-        //     'user_id' => $request->user_id,
-        // ]);
-
         if ($order) {
-            foreach ($cart as $value) {
+            foreach ($cart as $key=> $value) {
                 $detail = [
                     'price' => $value['price'],
-                    'quantity' => $value['quantity'], 
+                    'quantity' => $value['quatity'], 
                     'order_id' => $order->id, 
-                    'product_id' => $value['id']
+                    'product_id' => $key
                 ];
 
                 Order_detail::create($detail);
             }
             session()->forget('cart');
 
-            return redirect()->route('cart.success');
+            return redirect()->route('cart.success')->with('success', ' Add to cart successfully');
         } else {
             return redirect()->route('cart.error');
         }

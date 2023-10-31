@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('name', 100);
             $table->string('type', 100);
-            $table->integer('city_id');
+            $table->foreignId('city_id')->references('id')->on('cities')->nullable();
             $table->timestamps();
         });
     }

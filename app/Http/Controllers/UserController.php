@@ -84,7 +84,7 @@ class UserController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        
+        // dd($request->all());
         $user = User::find($id);
             if (!$user) {
             return redirect()->back()->with('error', 'User not found');
@@ -97,16 +97,19 @@ class UserController extends Controller
 
         ]);
         $request->validate($rules);
+
+        // dd($request->all());
         if ($request->hasFile('image')) {
             $request->validate([
                 'image' => 'image|mimes:jpeg,png,jpg,gif|max:2048',
             ]);
-            $file_name = time() . $request->image->getClientOriginalName();
+            $file_name = time().$request->image->getClientOriginalName();
             $request->image->move(public_path('uploads'), $file_name);
         } else {
             
             $file_name = 'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png';
         }
+      
         $password = $user->password;
         if (Hash::check($request->password, $user->password)) {
             $password = Hash::make($request->password);

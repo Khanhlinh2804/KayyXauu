@@ -9,14 +9,14 @@ use Illuminate\Database\Eloquent\softDeletes;
 class Order extends Model
 {
     use HasFactory,softDeletes;
-    protected $fillable = ['name' ,'lastname',	'address', 'city'	,'districts',	'phone',	'payment',	'email',	'note'	,'status' ,'user_id'];
+    protected $fillable = ['name' ,'lastname',	'address', 'city'	,'districts',	'phone',	'payment',	'email',	'note'	,'status' ,'user_id', 'created_at','updated_at'];
 
 
     public function users(){
         return $this->belongsTo(User::class, 'id', 'user_id');
     }
 
-    public function city(){
+    public function DataCity(){
         return $this->hasOne(City::class, 'id', 'city');
     }
     public function district(){
@@ -24,6 +24,11 @@ class Order extends Model
     }
 
     public function order_detail()
+    {
+        return $this->hasMany(Order_detail::class);
+    }
+
+    public function detail()
     {
         return $this->hasMany(Order_detail::class);
     }
