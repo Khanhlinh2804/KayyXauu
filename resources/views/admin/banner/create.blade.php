@@ -1,19 +1,33 @@
 @extends('backend.index')
-@section('title','Category Create')
+@section('title','Banner Create')
 @section('linh')
     <div class="container">
-        <form action="{{route('category.store')}}" method="post" enctype="multipart/form-data" role="form">
+        <form action="{{route('banner.store')}}" method="post" enctype="multipart/form-data" role="form">
             @csrf
             <div class="form-group" style="padding-top: 10px">
                 <label for="exampleInputEmail1">Name</label>
-                <input type="text" name="name" class="form-control" placeholder="Name's Category">
+                <input type="text" name="name" class="form-control" placeholder="Name's ">
                 @error('name')
                     <p class="text-danger">{{ $message }}</p>
                 @enderror
             </div>
             <div class="form-group" style="padding-top: 10px">
-                <label for="exampleInputEmail1">Name</label>
-                <input type="file" name="image" class="form-control" placeholder="Name's Category">
+                <label for="exampleInputEmail1">Link</label>
+                <input type="text" name="link" class="form-control" placeholder="image">
+                @error('summary')
+                    <p class="text-danger">{{ $message }}</p>
+                @enderror
+            </div>
+            <div class="form-group" style="padding-top: 10px">
+                <label for="exampleInputEmail1">Summary</label>
+                <input type="link" name="summary" class="form-control" placeholder="Link">
+                @error('summary')
+                    <p class="text-danger">{{ $message }}</p>
+                @enderror
+            </div>
+            <div class="form-group" style="padding-top: 10px">
+                <label for="exampleInputEmail1">Image</label>
+                <input type="file" name="image" class="form-control" placeholder="Image">
                 @error('image')
                     <p class="text-danger">{{ $message }}</p>
                 @enderror

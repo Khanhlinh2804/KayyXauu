@@ -7,12 +7,12 @@
                 <div class="d-flex">
 
                     <div class="col-lg-1">
-                        <a href="{{route('category.create')}}" class="btn btn-success">
+                        <a href="{{route('banner.create')}}" class="btn btn-success">
                             <ion-icon name="duplicate-outline" class="icon-add"></ion-icon>
                         </a>
                     </div>
                     <div class="col-lg-6">
-                        <a href="{{route('category.trashed')}}" class="btn btn-danger">
+                        <a href="{{route('banner.trashed')}}" class="btn btn-danger">
                             <ion-icon name="trash-outline" class="icon-add"></ion-icon>
                         <a>
                     </div>
@@ -42,15 +42,17 @@
         <table class="table">
             <thead>
                 <tr>
-                <th scope="col">ID</th>
-                <th scope="col">Name</th>
-                <th scope="col">Image</th>
-                <th scope="col">Status</th>
-                <th scope="col">Active</th>
+                    <th scope="col">ID</th>
+                    <th scope="col">Name</th>
+                    <th scope="col">Image</th>
+                    <th scope="col">Link</th>
+                    <th scope="col">Summary</th>
+                    <th scope="col">Status</th>
+                    <th scope="col">Active</th>
                 </tr>
             </thead>
             <tbody>
-                @foreach ($category as $item)
+                @foreach ($banner as $item)
                     <tr>
                         <th scope="row">{{$loop->iteration}}</th>
                         <td>{{$item->name}}</td>
@@ -58,10 +60,12 @@
                             <img src="{{url('uploads')}}/{{$item->image}}" style="width: 120px;
                                 height: 150px;" alt="">
                         </td>
+                        <td>{{$item->link}}</td>
+                        <td>{{$item->summary}}</td>
                         <td>{{$item->status}}</td>
                         <td>
-                            <form action="{{route('category.destroy',$item->id)}}" method="post">
-                                <a href="{{route('category.edit',$item->id)}}" class="button-icon-update"><ion-icon name="create-outline" class="icon-delete"></ion-icon></a>
+                            <form action="{{route('banner.destroy',$item->id)}}" method="post">
+                                <a href="{{route('banner.edit',$item->id)}}" class="button-icon-update"><ion-icon name="create-outline" class="icon-delete"></ion-icon></a>
                                 @method('delete')
                                 @csrf
                                 <button type="submit" class="button-icon-delete"><ion-icon name="close-outline" class="icon-delete"></ion-icon></button>
@@ -71,6 +75,6 @@
                 @endforeach
             </tbody>
         </table>
-        {{$category->appends(request()->all())->links() }}
+        {{$banner->appends(request()->all())->links() }}
     </div>
 @endsection

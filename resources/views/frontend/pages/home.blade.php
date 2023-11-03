@@ -15,36 +15,20 @@
         </div>
 
         <ul class="slides">
+            @foreach ($banner as $item)
+                
             <li class="slide">
-            <div class="slide-content">
-                <h2 class="slide-title">Slide #1</h2>
-                <p class="slide-text">Lorem ipsum dolor sit amet consectetur adipisicing elit. Quaerat dignissimos commodi eos totam perferendis possimus dolorem, deleniti vitae harum? Enim.</p>
-                <a href="#" class="slide-link">Learn more</a>
-            </div>
-            <p class="slide-image">
-                <img src="https://placeimg.com/320/240/tech" alt="stuff" width="320" height="240">
-            </p>
+                <div class="slide-content">
+                    <h2 class="slide-title">{{$item->name}}</h2>
+                    <p class="slide-text">{{$item->summary}}</p>
+                    <a href="{{$item->link}}" class="slide-link">Learn more</a>
+                </div>
+                <p class="slide-image">
+                    <img src="{{url('uploads')}}/{{$item->image}}" alt="stuff" width="320" height="240">
+                </p>
             </li>
-            <li class="slide">
-            <div class="slide-content">
-                <h2 class="slide-title">Slide #2</h2>
-                <p class="slide-text">Nisi ratione magni ea quis animi incidunt velit voluptate dolorem enim possimus, nam provident excepturi ipsam nihil molestiae minus delectus!</p>
-                <a href="#" class="slide-link">Amazing deal</a>
-            </div>
-            <p class="slide-image">
-                <img src="https://placeimg.com/320/240/animals" alt="stuff" width="320" height="240">
-            </p>
-            </li>
-            <li class="slide">
-            <div class="slide-content">
-                <h2 class="slide-title">Slide #3</h2>
-                <p class="slide-text">Quisquam quod ut quasi, vero obcaecati laudantium asperiores corporis ad atque. Expedita fugit dicta maxime vel doloribus sequi, facilis dignissimos.</p>
-                <a href="#" class="slide-link">Get started</a>
-            </div>
-            <p class="slide-image">
-                <img src="https://placeimg.com/320/240/any" alt="stuff" width="320" height="240">
-            </p>
-            </li>
+            @endforeach
+            
         </ul>
     </div>
     {{-- ------------introduce----------- --}}

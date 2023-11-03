@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('name', 100);
             $table->string('image');
+            $table->string('summary');
             $table->string('link')->default('https://www.facebook.com/klyngg/');
             $table->enum('status', ['Active', 'No Active'])->default('Active');
             $table->softDeletes();

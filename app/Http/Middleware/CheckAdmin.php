@@ -6,6 +6,7 @@ use Closure;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
 use App\Providers\RouteServiceProvider;
+use Auth;
 
 class CheckAdmin
 {
@@ -17,9 +18,11 @@ class CheckAdmin
     public function handle(Request $request, Closure $next): Response
     {
         if ( Auth::check() && Auth::user()->admin) {
-        return $next($request); }
+            
+            return $next($request); }
         else {
-             return redirect(RouteServiceProvider::HOME);
+            return redirect('/admin/login');
+            // return redirect(RouteServiceProvider::HOME);
         }
     }
 }

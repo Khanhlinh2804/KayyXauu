@@ -18,6 +18,7 @@ use App\Http\Controllers\SkillController;
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\CommentController;
 use App\Http\Controllers\CartController;
+use App\Http\Controllers\BannerController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\ProfileAdminController;
 
@@ -49,7 +50,7 @@ Route::middleware(['guest:admin'])->group(function () {
     
 });
 
-Route::group([ 'middleware'=>'guest:admin','prefix' => 'admin'], function() {
+Route::group([ 'middleware'=>['guest:admin','auth:admin'],'prefix' => 'admin'], function() {
     
     Route::get('/category/trashed', [CategoryController::class, 'trashed'])->name('category.trashed');
     Route::get('/category/restore/{id}', [CategoryController::class, 'restore'])->name('category.restore');
@@ -87,6 +88,10 @@ Route::group([ 'middleware'=>'guest:admin','prefix' => 'admin'], function() {
     Route::get('/order/restore/{id}', [OrderController::class, 'restore'])->name('order.restore');
     Route::get('/order/delete/{id}', [OrderController::class, 'delete'])->name('order.delete');
     
+    Route::get('/banner/trashed', [BannerController::class, 'trashed'])->name('banner.trashed');
+    Route::get('/banner/restore/{id}', [BannerController::class, 'restore'])->name('banner.restore');
+    Route::get('/banner/delete/{id}', [BannerController::class, 'delete'])->name('banner.delete');
+    
     Route::get('/contact/index', [ContactController::class, 'index'])->name('contact.index');
     Route::delete('/contact/destroy/{id}', [ContactController::class, 'destroy'])->name('contact.destroy');
     Route::get('/contact/edit/{id}', [ContactController::class, 'edit'])->name('contact.edit');
@@ -101,6 +106,7 @@ Route::group([ 'middleware'=>'guest:admin','prefix' => 'admin'], function() {
         'product'=> ProductController::class,
         'user' =>UserController::class,
         'blog' => BlogController::class,
+        'banner' => BannerController::class,
         'skill' => SkillController::class,
         'comment' => CommentController::class,
         'order' => OrderController::class,

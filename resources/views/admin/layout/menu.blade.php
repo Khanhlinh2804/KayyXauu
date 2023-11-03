@@ -74,6 +74,14 @@
                             <span class="title">Comment</span>
                         </a>
                     </li>
+                    <li>
+                        <a href="{{route('banner.index')}}">
+                            <span class="icon" >
+                                <ion-icon name="chatbox-ellipses-outline"></ion-icon>
+                            </span>
+                            <span class="title">Banner</span>
+                        </a>
+                    </li>
     
                     <li>
                         <a href="{{route('order.index')}}">

@@ -3,11 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\Category;
-use App\Models\Product;
-use App\Models\Skill;
-use App\Models\Blog;
-use App\Models\Comment;
+use App\Models\{Category,Product,Skill,Blog,Comment,Banner};
 
 class PageController extends Controller
 {
@@ -20,8 +16,9 @@ class PageController extends Controller
         $blog = Blog::with('skill')->orderBy('id','DESC')->limit(1)->get();
         $blogs = Blog::with('skill')->orderBy('id','DESC')->limit(1)->get();
         $category = Category::orderBy('id','DESC')->limit(4)->get();
+        $banner = Banner::inRandomOrder()->limit(3)->get();
         $product = Product::orderBy('id','DESC')->limit(4)->get();
-        return view('frontend.pages.home',compact('category','product','blog','blogs'));
+        return view('frontend.pages.home',compact('category','banner','product','blog','blogs'));
     }
     // public function changeSize($size){
     //     $this->size = $size;
