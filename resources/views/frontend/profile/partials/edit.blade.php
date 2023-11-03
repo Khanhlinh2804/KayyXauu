@@ -40,7 +40,7 @@
                 <div class="profile-image">
                     <input type="file" name="image" id=""
                     {{old('$user->image')}}>
-                    <img src="{{url('')}}/assets/imgs/standard.png" alt="" >
+                    <img src="{{url('uploads')}}/{{$user->image}}" alt="" >
                 </div>
             </div>
         </div>

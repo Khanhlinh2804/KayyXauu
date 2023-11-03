@@ -18,11 +18,12 @@ class ProfileController extends Controller
     public function index(Request $request , Order_detail $id): View
     {
         // dd($request->user()->name);
-        $user = $request->user();
-        // $user = User::with('orders_user')->find($id);
-        // $order = Order::with('users')->find($id);
-        // dd($order->users);
-        return view('frontend.profile.edit', compact('user'));
+        // $user = $request->user();
+        
+        // $order = User::with('orders')->orderBy('created_at','desc');
+        $order = Order::with('users')->orderBy('created_at','desc');
+        // dd($order);
+        return view('frontend.profile.edit', compact('order'));
     }
     public function edit(Request $request): View
     {

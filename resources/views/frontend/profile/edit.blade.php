@@ -19,7 +19,7 @@
             </div>  
         @endif
         <div class="col-lg-5">
-                <h1>Hello {{$user->name}}</h1>
+                <h1>Hello {{Auth::user()->name}}</h1>
                 <table class="table">
                     <tbody>
                         <tr>
@@ -29,13 +29,13 @@
                         <tr>
                             <td>Phone:</td>
                             <td>
-                                {{$user->phone}}
+                                {{Auth::user()->phone}}
                             </td>
                         </tr>
                         <tr>
                             <td>Email:</td>
                             <td>
-                                {{$user->email}}
+                                {{Auth::user()->email}}
                             </td>
                         </tr>
                     </tbody>
@@ -59,13 +59,14 @@
         <div class="col-lg-7 text-about">
             <div class="profile-image">
                 {{-- <img src="{{url('uplaods')}}/{{$user->image}}" alt="" width="100%" height="400px"> --}}
-                <img src="{{url('')}}/assets/imgs/standard.png" alt="" >
+                <img src="{{url('uploads')}}/{{Auth::user()->image}}" alt="" >
             </div>
         </div>
     </div>
-    <div class="row pt-5">
+    {{-- <div class="row pt-5">
         <h1 class="pb-5">Order</h1>
         <div class="col-lg-1"></div>
+        
         <div class="col-lg-10">
             <table class="table">
                 <thead>
@@ -78,7 +79,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach ($user->orders as $item)  
+                    @foreach ($order as $item)  
                         <tr>
                             <td>{{$loop->iteration}}</td>
                             <td>
@@ -86,7 +87,7 @@
                                     {{$item->name}}{{$item->full}}
                                 </a>
                             </td>
-                            {{-- <td>{{$item->created_at->format('d/m/Y')}}</td> --}}
+                            
                             <td>{{$item->updated_at->format('d/m/Y')}}</td>
                             <td>
                                 @if ($item->status == 1)
@@ -109,7 +110,7 @@
                 </tbody>
             </table>
         </div>
-    </div>
+    </div> --}}
 </div>
 
 

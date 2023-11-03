@@ -60,18 +60,10 @@
                     name="city" id="city" >
                         <option value="" selected disabled>Select a city</option>
                         @foreach ($city as $data)
-                            <option value="{{ $data->id }}" {{ old('city') == $data->id ? 'selected' : '' }}>{{ $data->name }}{{ $data->id }}</option>
+                            <option value="{{ $data->id }}" {{ old('city') == $data->id ? 'selected' : '' }}>{{ $data->name }}</option>
                         @endforeach
                     </select>
                 </div>
-                {{-- <div class="contact">
-                    <select class="form-select border-top-0 border-start-0 border-end-0" name="districts" >
-                        <option value="" selected disabled>Select a district</option>
-                        @foreach ($district as $data)
-                            <option value="{{ $data->id }}" {{ old('districts') == $data->id ? 'selected' : '' }}>{{ $data->name }}</option>
-                        @endforeach
-                    </select>
-                </div> --}}
 
 
                 <div class="contact">

@@ -59,6 +59,7 @@ class User extends Authenticatable
         return $this->hasMany(Order::class, 'user_id', 'id');
     }
 
+    
 
     public function scopeSearch($query) {
         if($key = request()->key){
